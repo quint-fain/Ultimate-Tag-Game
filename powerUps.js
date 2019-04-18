@@ -1,0 +1,5 @@
+class PowerUps() {
+    constructor() {
+
+    }
+}

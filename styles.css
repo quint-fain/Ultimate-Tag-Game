@@ -1,26 +1,28 @@
-#player {
+.player {
     border: 5px solid black;
     border-radius: 50%;
     width: 50px;
     height: 50px;
 }
 
-.it {
+#it {
     background-color: black;
+    color: white;
 }
 
-.notIt {
+#notIt {
     background-color: white;
+    color: black;
 }
 
-#obstacles {
+.obstacles {
     width: 30px;
     height: 30px;
     border: 3px dashed red;
     background-color: white;
 }
 
-#powerUps {
+.powerUps {
     width: 30px;
     height: 15px;
     border: 3px dashed green;

@@ -1,5 +1,1 @@
-class Scoreboard {
-    constructor() {
 
-    }
-}

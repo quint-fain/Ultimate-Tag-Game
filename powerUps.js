@@ -1,5 +1,1 @@
-class PowerUps() {
-    constructor() {
 
-    }
-}

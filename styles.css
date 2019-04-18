@@ -30,6 +30,12 @@
 }
 
 h1 {
-    text-align: center;
+    margin: 0 auto;
     color: red;
+}
+
+.btn {
+    margin: 0 auto;
+    border-color: black;
+    background-color: grey;
 }

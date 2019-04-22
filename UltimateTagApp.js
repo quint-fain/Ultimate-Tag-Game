@@ -48,25 +48,30 @@ class Scoreboard {
 
 
 class Timer {
-  constructor() {
-    this.time = 60;
-    this.display = document.getElementById("timer");
-  }
-
-  getTime() {
-    let start = new Date();
-
-    function updateTime() {
-      let timeLeft = 60 - ((Date().now - start.getTime())/1000);
-      document.getElementById("timer").textContent = timeLeft;
+    constructor() {
+        this.time = 60;
+        this.display = document.getElementById("timer");
+        this.timerID;
     }
 
-    updateTime();
-    setInterval(updateTime, 1000);
-  }
-}
+    startTime() {
+        let start = new Date();
 
-let thisTimer = new Timer();
+        function updateTime() {
+            let now = new Date();
+            let timeLeft = 60 - ((now.getTime() - start.getTime())/1000);
+            timeLeft = Math.ceil(timeLeft);
+            console.log(timeLeft);
+        }
+
+        updateTime();
+        this.timerID = setInterval(updateTime, 1000);
+    }
+
+    stopTime() {
+        clearInterval(this.timerID);
+    }
+}
 
 
 

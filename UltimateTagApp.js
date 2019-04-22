@@ -18,19 +18,26 @@ class UltimateTagApp {
             }else if (event.key == 'ArrowRight') {
                 this.player1.moveRight();
             }});
-            window.addEventListener('keydown', () => {
-                if(event.key == 's') {
-                    this.player2.moveDown();
-                }else if (event.key == 'w') {
-                    this.player2.moveUp();
-                }else if (event.key == 'a') {
-                    this.player2.moveLeft();
-                }else if (event.key == 'd') {
-                    this.player2.moveRight();
-                }});
+        window.addEventListener('keydown', () => {
+            if(event.key == 's') {
+                this.player2.moveDown();
+            }else if (event.key == 'w') {
+                this.player2.moveUp();
+            }else if (event.key == 'a') {
+                this.player2.moveLeft();
+            }else if (event.key == 'd') {
+                this.player2.moveRight();
+            }});
     }
 
+    document.appendChild(this.player1);
+    document.appendChild(this.player2);
+    
     assignRoles(){
+
+    }
+
+    render(){
 
     }
 }
@@ -39,11 +46,11 @@ class UltimateTagApp {
 
 
 class Player {
-    constructor(_xpos, _ypos, _color, _it) {
+    constructor(_xpos, _ypos, _color, _id) {
         this.xpos = Math.random() * window.innerWidth;
         this.ypos = Math.random() * window.innerHeight;
-        this.color = _color;
-        this.it = _it;
+        this.color = black;
+        this.id = "player";
     }
 
     moveLeft(){
@@ -62,6 +69,7 @@ class Player {
         document.write("Player Moved Down.")
 
     }
+
 }
 
 

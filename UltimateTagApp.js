@@ -9,10 +9,25 @@ class UltimateTagApp {
         this.player2 = new Player();
         this.Scoreboard = new Scoreboard();
         window.addEventListener('keydown', () => {
-            if(key == 'b') {
+            if(event.key == 'ArrowDown') {
                 this.player1.moveDown();
-            };
-        });
+            }else if (event.key == 'ArrowUp') {
+                this.player1.moveUp();
+            }else if (event.key == 'ArrowLeft') {
+                this.player1.moveLeft();
+            }else if (event.key == 'ArrowRight') {
+                this.player1.moveRight();
+            }});
+            window.addEventListener('keydown', () => {
+                if(event.key == 's') {
+                    this.player2.moveDown();
+                }else if (event.key == 'w') {
+                    this.player2.moveUp();
+                }else if (event.key == 'a') {
+                    this.player2.moveLeft();
+                }else if (event.key == 'd') {
+                    this.player2.moveRight();
+                }});
     }
 
     assignRoles(){
@@ -25,26 +40,26 @@ class UltimateTagApp {
 
 class Player {
     constructor(_xpos, _ypos, _color, _it) {
-        this.xpos = _xpos;
-        this.ypos = _ypos;
+        this.xpos = Math.random() * window.innerWidth;
+        this.ypos = Math.random() * window.innerHeight;
         this.color = _color;
         this.it = _it;
     }
 
     moveLeft(){
-
+        document.write("Player Moved left.")
     }
 
     moveRight(){
-
+        document.write("Player Moved right.")
     }
 
     moveUp(){
-
+        document.write("Player Moved up.")
     }
 
     moveDown(){
-        console.print("Player 1 moved down.");
+        document.write("Player Moved Down.")
 
     }
 }

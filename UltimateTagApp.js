@@ -1,13 +1,18 @@
+
+
+
+
+
 class UltimateTagApp {
     constructor() {
         this.player1 = new Player();
         this.player2 = new Player();
         this.Scoreboard = new Scoreboard();
-
-    }
-
-    movePlayer(){
-
+        window.addEventListener('keydown', () => {
+            if(key == 'b') {
+                this.player1.moveDown();
+            };
+        });
     }
 
     assignRoles(){
@@ -25,7 +30,25 @@ class Player {
         this.color = _color;
         this.it = _it;
     }
+
+    moveLeft(){
+
+    }
+
+    moveRight(){
+
+    }
+
+    moveUp(){
+
+    }
+
+    moveDown(){
+        console.print("Player 1 moved down.");
+
+    }
 }
+
 
 
 
@@ -66,12 +89,6 @@ class Timer {
   }
 }
 
-let thisTimer = new Timer();
-
-
-
-
-
 class Obstacles {
     constructor(_color) {
         this.color = _color;
@@ -91,7 +108,7 @@ class Obstacles {
 
 
 
-class PowerUps() {
+class PowerUps {
     constructor() {
         this.color = "green";
     }
@@ -104,3 +121,5 @@ class PowerUps() {
 
     }
 }
+
+let myGame = new UltimateTagApp();

@@ -29,9 +29,6 @@ class UltimateTagApp {
                 this.player2.moveRight();
             }});
     }
-
-    document.appendChild(this.player1);
-    document.appendChild(this.player2);
     
     assignRoles(){
 
@@ -94,38 +91,23 @@ class Scoreboard {
 
 
 class Timer {
-    constructor() {
-        this.time = 60;
-        this.display = document.getElementById("timer");
-        this.timerID;
+  constructor() {
+    this.time = 60;
+    this.display = document.getElementById("timer");
+  }
+
+  getTime() {
+    let start = new Date();
+
+    function updateTime() {
+      let timeLeft = 60 - ((Date().now - start.getTime())/1000);
+      document.getElementById("timer").textContent = timeLeft;
     }
 
-    startTime() {
-        let start = new Date();
-
-        function updateTime() {
-            let now = new Date();
-            let timeLeft = 60 - ((now.getTime() - start.getTime())/1000);
-            timeLeft = Math.ceil(timeLeft);
-            console.log(timeLeft);
-        }
-
-        updateTime();
-        this.timerID = setInterval(updateTime, 1000);
-    }
-
-    stopTime() {
-        clearInterval(this.timerID);
-    }
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
 }
-
-
-
-
-
-
-
-
 
 class Obstacles {
     constructor(_color) {

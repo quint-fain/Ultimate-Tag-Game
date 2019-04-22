@@ -37,7 +37,8 @@ class UltimateTagApp {
     let id = setInterval(game, 10);
 
     function frames(){
-        render();
+        player1.render();
+        player2.render();
     }
 }
 
@@ -46,10 +47,11 @@ class UltimateTagApp {
 
 class Player {
     constructor(_xpos, _ypos, _color, _id) {
-        this.xpos = _xpos;
-        this.ypos = _ypos;
+        this.xpos = 500;
+        this.ypos = 500;
         this.color = black;
         this.id = "player";
+        this.elem = document.getElementsByClassName("player");
     }
 
     moveLeft(){
@@ -69,7 +71,10 @@ class Player {
 
     }
 
-
+    render() {
+        this.elem.style.top = this.ypos;
+        this.elem.style.left = this.xpos;
+    }
 }
 
 

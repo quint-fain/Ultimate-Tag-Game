@@ -46,6 +46,32 @@ class Scoreboard {
 
 
 
+
+class Timer {
+  constructor() {
+    this.time = 60;
+    this.display = document.getElementById("timer");
+  }
+
+  getTime() {
+    let start = new Date();
+
+    function updateTime() {
+      let timeLeft = 60 - ((Date().now - start.getTime())/1000);
+      document.getElementById("timer").textContent = timeLeft;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
+}
+
+let thisTimer = new Timer();
+
+
+
+
+
 class Obstacles {
     constructor(_color) {
         this.color = _color;
@@ -75,23 +101,6 @@ class PowerUps() {
     }
 
     invisibility(){
-
-    }
-}
-
-
-
-
-class Timer(){
-    constructor(){
-        this.time = 0;
-    }
-
-    upDateTime(){
-
-    }
-
-    getTime(){
 
     }
 }

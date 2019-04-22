@@ -39,3 +39,9 @@ h1 {
     border-color: black;
     background-color: grey;
 }
+
+.maps {
+    position:absolute;
+    bottom: 0;
+    right:0;
+}

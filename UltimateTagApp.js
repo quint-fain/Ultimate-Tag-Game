@@ -29,13 +29,15 @@ class UltimateTagApp {
                 this.player2.moveRight();
             }});
     }
-    
+
     assignRoles(){
 
     }
 
-    render(){
+    let id = setInterval(game, 10);
 
+    function frames(){
+        render();
     }
 }
 
@@ -44,8 +46,8 @@ class UltimateTagApp {
 
 class Player {
     constructor(_xpos, _ypos, _color, _id) {
-        this.xpos = Math.random() * window.innerWidth;
-        this.ypos = Math.random() * window.innerHeight;
+        this.xpos = _xpos;
+        this.ypos = _ypos;
         this.color = black;
         this.id = "player";
     }
@@ -66,6 +68,7 @@ class Player {
         document.write("Player Moved Down.")
 
     }
+
 
 }
 

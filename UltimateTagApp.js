@@ -3,7 +3,8 @@ class UltimateTagApp {
     constructor() {
         this.player1 = new Player("player1");
         this.player2 = new Player("player2");
-        this.Scoreboard = new Scoreboard();
+        this.scoreboard = new Scoreboard();
+
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
                 this.player1.moveDown();
@@ -13,7 +14,8 @@ class UltimateTagApp {
                 this.player1.moveLeft();
             }else if (event.key == 'ArrowRight') {
                 this.player1.moveRight();
-            }});
+            }
+        });
         window.addEventListener('keydown', () => {
             if(event.key == 's') {
                 this.player2.moveDown();
@@ -23,19 +25,19 @@ class UltimateTagApp {
                 this.player2.moveLeft();
             }else if (event.key == 'd') {
                 this.player2.moveRight();
-            }});
+            }
+        });
 
+
+    }
+
+    assignRoles(){
 
     }
 
     update() {
         this.player1.render();
         this.player2.render();
-        console.log(this.player1.xpos, this.player1.ypos);
-    }
-
-    assignRoles(){
-
     }
 
 }
@@ -53,20 +55,19 @@ class Player {
     }
 
     moveLeft(){
-        document.write("Player Moved left.")
+        console.log("Player Moved left.")
     }
 
     moveRight(){
-        document.write("Player Moved right.")
+        console.log("Player Moved right.")
     }
 
     moveUp(){
-        document.write("Player Moved up.")
+        console.log("Player Moved up.")
     }
 
     moveDown(){
-        document.write("Player Moved Down.")
-
+        console.log("Player Moved Down.")
     }
 
     render() {
@@ -98,29 +99,24 @@ class Scoreboard {
 
 class Timer {
     constructor() {
-        this.time = 60;
+        this.time = 61;
         this.display = document.getElementById("timer");
-        this.timerID;
+        this.start = new Date();
+        this.timeLeft = 61
     }
 
-    startTime() {
-        let start = new Date();
-
-        function updateTime() {
+    updateTime() {
+        if (this.timeLeft > 0) {
             let now = new Date();
-            let timeLeft = this.time - ((now.getTime() - start.getTime())/1000);
-            timeLeft = Math.ceil(timeLeft);
-            console.log(timeLeft);
+            this.timeLeft = this.time - ((now.getTime() - this.start.getTime())/1000);
+            this.timeLeft = Math.ceil(this.timeLeft);
+            console.log(this.timeLeft);
+        } else {
+            clearInterval(timer_id);
         }
-
-        updateTime();
-        this.timerID = setInterval(updateTime, 1000);
-    }
-
-    stopTime() {
-        clearInterval(this.timerID);
     }
 }
+
 
 
 class Obstacles {
@@ -158,8 +154,12 @@ class PowerUps {
 
 let myGame = new UltimateTagApp();
 
-let id = setInterval(frames, 10);
-
-function frames(){
+let game_id = setInterval(frame, 10);
+function frame(){
     myGame.update();
+}
+
+let timer_id = setInterval(timer_frame, 1000);
+function timer_frame() {
+    myGame.scoreboard.timer.updateTime();
 }

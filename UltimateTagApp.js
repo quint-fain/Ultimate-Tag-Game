@@ -1,8 +1,8 @@
 
 class UltimateTagApp {
     constructor() {
-        this.player1 = new Player();
-        this.player2 = new Player();
+        this.player1 = new Player("player1");
+        this.player2 = new Player("player2");
         this.Scoreboard = new Scoreboard();
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
@@ -31,6 +31,7 @@ class UltimateTagApp {
     update() {
         this.player1.render();
         this.player2.render();
+        console.log(this.player1.xpos, this.player1.ypos);
     }
 
     assignRoles(){
@@ -43,12 +44,12 @@ class UltimateTagApp {
 
 
 class Player {
-    constructor() {
-        this.xpos = (Math.random() * window.innerWidth);
-        this.ypos = (Math.random() * window.innerHeight);
+    constructor(_id) {
+        this.xpos = Math.floor(Math.random() * window.innerWidth);
+        this.ypos = Math.floor(Math.random() * window.innerHeight);
         this.color = "green";
-        this.id = "player";
-        this.elem = document.getElementById("player");
+        this.id = _id;
+        this.elem = document.getElementById(this.id);
     }
 
     moveLeft(){

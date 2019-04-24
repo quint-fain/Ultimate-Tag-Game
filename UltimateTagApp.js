@@ -28,17 +28,19 @@ class UltimateTagApp {
             }else if (event.key == 'd') {
                 this.player2.moveRight();
             }});
+
+           let id = setInterval(frames, 10);
     }
 
     assignRoles(){
 
     }
 
-    let id = setInterval(frames, 10);
 
-    function frames(){
+    frames(){
         this.player1.render();
         this.player2.render();
+        console.log("we did it");
     }
 }
 
@@ -51,7 +53,7 @@ class Player {
         this.ypos = _ypos;
         this.color = _color;
         this.id = "player";
-        this.elem = document.getElementsByClassName("player");
+        this.elem = document.getElementById("player");
     }
 
     moveLeft(){

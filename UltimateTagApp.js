@@ -1,8 +1,4 @@
 
-
-
-
-
 class UltimateTagApp {
     constructor() {
         this.player1 = new Player();

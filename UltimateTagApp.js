@@ -1,12 +1,11 @@
-
 class UltimateTagApp {
     constructor() {
         this.assigned_it = false;
         this.assigned_notIt = false;
 
-        this.player1 = new Player("player1", this.assignRoles());
-        this.player2 = new Player("player2", this.assignRoles());
-        this.scoreboard = new Scoreboard();
+        this.player1 = new Player(this.assignRoles());
+        this.player2 = new Player(this.assignRoles());
+        this.timer = new Timer("game_timer");
 
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
@@ -53,6 +52,10 @@ class UltimateTagApp {
     update() {
         this.player1.render();
         this.player2.render();
+
+        document.getElementById("game_timer").textContent = this.timer.timeLeft;
+        document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
+        document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
     }
 
 }
@@ -61,14 +64,13 @@ class UltimateTagApp {
 
 
 class Player {
-    constructor(_id, _role) {
+    constructor(_role) {
         this.xpos = Math.floor(Math.random() * window.innerWidth);
         this.ypos = Math.floor(Math.random() * window.innerHeight);
-        this.color = "green";
-        this.id = _id;
-        this.elem = document.getElementById(this.id);
-
         this.role = _role;
+        this.elem = document.getElementById(this.role);
+
+        this.timer = new Timer("player_timer");
     }
 
     moveLeft(){
@@ -97,7 +99,7 @@ class Player {
 
 
 
-
+/*
 class Scoreboard {
     constructor() {
         this.timer = new Timer();
@@ -108,29 +110,33 @@ class Scoreboard {
 
     }
 }
-
+*/
 
 
 
 
 
 class Timer {
-    constructor() {
-        this.time = 61;
-        this.display = document.getElementById("timer");
-        this.start = new Date();
+    constructor(_id) {
+        this.id = _id;
+        this.elem = document.getElementById(this.id);
         this.timeLeft = 61
+        this.timeEllapsed = -1;
     }
 
-    updateTime() {
+    countdown() {
         if (this.timeLeft > 0) {
-            let now = new Date();
-            this.timeLeft = this.time - ((now.getTime() - this.start.getTime())/1000);
-            this.timeLeft = Math.ceil(this.timeLeft);
+            this.timeLeft--;
             console.log(this.timeLeft);
         } else {
             clearInterval(timer_id);
+            //this will be where the whole game should reset/winner should be displayed on the screen
         }
+    }
+
+    countup() {
+        this.timeEllapsed++;
+        console.log(this.timeEllapsed);
     }
 }
 
@@ -178,5 +184,10 @@ function frame(){
 
 let timer_id = setInterval(timer_frame, 1000);
 function timer_frame() {
-    myGame.scoreboard.timer.updateTime();
+    if (myGame.player1.role == "it") {
+        myGame.player1.timer.countup();
+    } else {
+        myGame.player2.timer.countup();
+    }
+    myGame.timer.countdown();
 }

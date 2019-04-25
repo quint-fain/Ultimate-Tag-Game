@@ -57,8 +57,8 @@ class UltimateTagApp {
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
     }
-
 }
+
 
 
 
@@ -70,28 +70,33 @@ class Player {
         this.role = _role;
         this.elem = document.getElementById(this.role);
 
+        this.xspeed = 0;
+        this.yspeed = 0;
+
         this.timer = new Timer("player_timer");
     }
 
     moveLeft(){
-        console.log("Player Moved left.")
+        this.xspeed = -1;
     }
 
     moveRight(){
-        console.log("Player Moved right.")
+        this.xspeed = 1;
     }
 
     moveUp(){
-        console.log("Player Moved up.")
+        this.yspeed = -1;
     }
 
     moveDown(){
-        console.log("Player Moved Down.")
+        this.yspeed = 1;
     }
 
     render() {
-        this.elem.style.top = this.ypos + "px";
+        this.xpos = this.xpos + this.xspeed;
+        this.ypos = this.ypos + this.yspeed;
         this.elem.style.left = this.xpos + "px";
+        this.elem.style.top = this.ypos + "px";
     }
 }
 
@@ -142,6 +147,8 @@ class Timer {
 
 
 
+
+
 class Obstacles {
     constructor(_color) {
         this.color = _color;
@@ -174,6 +181,10 @@ class PowerUps {
 
     }
 }
+
+
+
+
 
 let myGame = new UltimateTagApp();
 

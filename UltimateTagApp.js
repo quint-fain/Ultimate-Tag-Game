@@ -1,8 +1,11 @@
 
 class UltimateTagApp {
     constructor() {
-        this.player1 = new Player("player1");
-        this.player2 = new Player("player2");
+        this.assigned_it = false;
+        this.assigned_notIt = false;
+
+        this.player1 = new Player("player1", this.assignRoles());
+        this.player2 = new Player("player2", this.assignRoles());
         this.scoreboard = new Scoreboard();
 
         window.addEventListener('keydown', () => {
@@ -27,12 +30,24 @@ class UltimateTagApp {
                 this.player2.moveRight();
             }
         });
-
-
     }
 
     assignRoles(){
+        let randNum = Math.floor(Math.random() * 2);
 
+        let role = "";
+
+        if (randNum == 0 && this.assigned_it == false) {
+            role = "it";
+            this.assigned_it = true;
+        } else if (this.assigned_notIt == false) {
+            role = "notIt";
+            this.assigned_notIt = true;
+        } else {
+            role = "it";
+        }
+
+        return role;
     }
 
     update() {
@@ -46,12 +61,14 @@ class UltimateTagApp {
 
 
 class Player {
-    constructor(_id) {
+    constructor(_id, _role) {
         this.xpos = Math.floor(Math.random() * window.innerWidth);
         this.ypos = Math.floor(Math.random() * window.innerHeight);
         this.color = "green";
         this.id = _id;
         this.elem = document.getElementById(this.id);
+
+        this.role = _role;
     }
 
     moveLeft(){

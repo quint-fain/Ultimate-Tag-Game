@@ -75,9 +75,25 @@ class UltimateTagApp {
         return role;
     }
 
+    collision(){
+    let xd = this.player1.xpos - this.player2.xpos
+    let yd = this.player1.ypos - this.player2.ypos
+    let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd))
+        if (distanceBtwn <= this.player1.radius + this.player2.radius){
+            if (this.player1.role == "it") {
+                this.player1.role = "notIt";
+                this.player2.role = "it";
+            }else{
+                this.player2.role = "notIt";
+                this.player1.role = "it";
+            }
+        }
+    }
+
     update() {
         this.player1.render();
         this.player2.render();
+        this.collision();
         document.getElementById("game_timer").textContent = this.timer.timeLeft;
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
@@ -108,7 +124,7 @@ class Player {
         this.ypos = (Math.random() * window.innerHeight);
         this.role = _role;
         this.elem = document.getElementById(this.role);
-
+        this.radius = 25;
         this.Lspeed = 0;
         this.Rspeed = 0;
         this.Uspeed = 0;
@@ -144,7 +160,6 @@ class Player {
     invisibility(){
 
     }
-
 
     render() {
         this.xpos = this.xpos + this.Lspeed + this.Rspeed;
@@ -226,6 +241,7 @@ class PowerUp {
     constructor(_id) {
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
+        this.radius = 15;
         this.type = 0;
         this.elem = document.getElementById(_id);
         this.elem.style.top = this.ypos + "px";

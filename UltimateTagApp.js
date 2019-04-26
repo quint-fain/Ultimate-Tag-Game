@@ -9,6 +9,8 @@ class UltimateTagApp {
         this.player2 = new Player(this.assignRoles());
         this.timer = new Timer("game_timer");
 
+        this.collision_bool = false;
+
         this.powerUps = [];
         this.powerUp_counter = 0;
         this.numPowerUp = 0;
@@ -79,17 +81,22 @@ class UltimateTagApp {
     }
 
     collision(){
+
     let xd = this.player1.xpos - this.player2.xpos
     let yd = this.player1.ypos - this.player2.ypos
     let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd))
         if (distanceBtwn <= this.player1.radius + this.player2.radius){
-            if (this.player1.role == "it") {
+            if (this.player1.role == "it" && this.collision_bool == false) {
                 this.player1.role = "notIt";
                 this.player2.role = "it";
-            }else{
+                this.collision_bool = true;
+            }else if (this.collision_bool == false){
                 this.player2.role = "notIt";
                 this.player1.role = "it";
+                this.collision_bool = true;
             }
+        } else {
+            this.collision_bool = false;
         }
     }
 
@@ -223,7 +230,6 @@ class Timer {
     countdown() {
         if (this.timeLeft > 0) {
             this.timeLeft--;
-            console.log(this.timeLeft);
         } else {
             clearInterval(timer_id);
             //this will be where the whole game should reset/winner should be displayed on the screen
@@ -232,7 +238,6 @@ class Timer {
 
     countup() {
         this.timeEllapsed++;
-        console.log(this.timeEllapsed);
     }
 }
 

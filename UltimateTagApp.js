@@ -1,3 +1,5 @@
+let body = document.getElementById("gamespace");
+
 class UltimateTagApp {
     constructor() {
         this.assigned_it = false;
@@ -11,8 +13,8 @@ class UltimateTagApp {
             let powerUp = document.createElement("div");
             powerUp.className = "powerUp";
             powerUp.id = "powerUp" + i;
-            element.appendChild(powerUp);
-            this.powerUp + i = new PowerUp(powerUp.id);
+            body.appendChild(powerUp);
+            this.powerUp = new PowerUp(powerUp.id);
         }
 
         window.addEventListener('keydown', () => {
@@ -205,7 +207,7 @@ class Obstacles {
 
 
 
-class PowerUps {
+class PowerUp {
     constructor(_id) {
         this.id = _id;
         this.xpos = Math.floor(Math.random() * window.innerWidth);

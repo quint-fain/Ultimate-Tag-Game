@@ -8,7 +8,11 @@ class UltimateTagApp {
         this.timer = new Timer("game_timer");
 
         for (let i = 0; i < 5; i++) {
-            this.powerUp+i("powerUp"+i);
+            let powerUp = document.createElement("div");
+            powerUp.className = "powerUp";
+            powerUp.id = "powerUp" + i;
+            element.appendChild(powerUp);
+            this.powerUp + i = new PowerUp(powerUp.id);
         }
 
         window.addEventListener('keydown', () => {
@@ -201,12 +205,15 @@ class Obstacles {
 
 
 
-class PowerUp {
+class PowerUps {
     constructor(_id) {
         this.id = _id;
         this.xpos = Math.floor(Math.random() * window.innerWidth);
         this.ypos = Math.floor(Math.random() * window.innerHeight);
     }
+
+
+
 
     moreSpeed(){
 

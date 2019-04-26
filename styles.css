@@ -28,6 +28,7 @@
 .powerUps {
     width: 30px;
     height: 15px;
+    border-radius: 50%;
     border: 3px dashed green;
     background-color: white;
 }

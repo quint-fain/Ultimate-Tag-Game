@@ -7,6 +7,10 @@ class UltimateTagApp {
         this.player2 = new Player(this.assignRoles());
         this.timer = new Timer("game_timer");
 
+        for (let i = 0; i < 10; i++) {
+            this.powerUp+i("powerUp"+i);
+        }
+
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
                 this.player1.moveDown();

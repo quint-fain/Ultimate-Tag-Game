@@ -85,6 +85,7 @@ class UltimateTagApp {
     update() {
         this.player1.render();
         this.player2.render();
+        this.powerUp.render();
         document.getElementById("game_timer").textContent = this.timer.timeLeft;
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
@@ -97,8 +98,8 @@ class UltimateTagApp {
 
 class Player {
     constructor(_role) {
-        this.xpos = Math.floor(Math.random() * window.innerWidth);
-        this.ypos = Math.floor(Math.random() * window.innerHeight);
+        this.xpos = (Math.random() * window.innerWidth);
+        this.ypos = (Math.random() * window.innerHeight);
         this.role = _role;
         this.elem = document.getElementById(this.role);
 
@@ -127,6 +128,14 @@ class Player {
 
     moveDown(){
         this.Dspeed = 1;
+
+    }
+
+    moreSpeed(){
+
+    }
+
+    invisibility(){
 
     }
 
@@ -210,20 +219,16 @@ class Obstacles {
 class PowerUp {
     constructor(_id) {
         this.id = _id;
-        this.xpos = (Math.floor(Math.random() * window.innerWidth);
-        this.ypos = (Math.floor(Math.random() * window.innerHeight);
+        this.xpos = (Math.random() * window.innerWidth);
+        this.ypos = (Math.random() * window.innerHeight);
         this.type = 0;
-    }
-
-
-
-
-    moreSpeed(){
+        this.elem = document.getElementById(this.id);
 
     }
 
-    invisibility(){
-
+    render(){
+        this.elem.style.top = this.ypos;
+        this.elem.style.left = this.xpos;
     }
 }
 

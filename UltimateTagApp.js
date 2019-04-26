@@ -8,7 +8,10 @@ class UltimateTagApp {
         this.player1 = new Player(this.assignRoles());
         this.player2 = new Player(this.assignRoles());
         this.timer = new Timer("game_timer");
+
         this.powerUps = [];
+        this.powerUp_counter = 0;
+        this.numPowerUp = 0;
 
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
@@ -99,22 +102,41 @@ class UltimateTagApp {
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
     }
 
-    addPowerUp(i) {
+    addPowerUp() {
+        let pu_type = "";
+
+        let random_num = Math.floor(Math.random() * 2);
+
+        if (random_num == 0) {
+            pu_type = "moreSpeed";
+        } else {
+            pu_type = "invisibility";
+        }
+
         let pu = document.createElement("div");
-        pu.className = "powerUp";
-        pu.id = "powerUp" + i;
+        pu.className = pu_type;
+
+
+        pu.id = "powerUp" + this.numPowerUp;
+
+
         body.appendChild(pu);
-        this.powerUps.push(new PowerUp(pu.id));
+        this.powerUps.push(new PowerUp(pu.id, ));
+        this.numPowerUp++;
     }
 
-    initializePowerUps(){
-        for (var i = 0; i < 5; i++) {
-            this.addPowerUp(i);
+    initializePowerUps() {
+        if (this.powerUp_counter == 500) {
+            this.addPowerUp();
+            this.powerUp_counter = 0;
+        } else {
+            this.powerUp_counter++;
         }
     }
 
     removePowerUp() {
-
+        body.removeChild(this.powerUps[this.powerUp_counter].elem);
+        this.powerUp_counter--;
     }
 }
 
@@ -238,11 +260,11 @@ class Obstacles {
 
 
 class PowerUp {
-    constructor(_id) {
+    constructor(_id, _type) {
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
         this.radius = 15;
-        this.type = 0;
+        this.type = _type;
         this.elem = document.getElementById(_id);
         this.elem.style.top = this.ypos + "px";
         this.elem.style.left = this.xpos + "px";
@@ -255,11 +277,10 @@ class PowerUp {
 
 let myGame = new UltimateTagApp();
 
-myGame.initializePowerUps();
-
 let game_id = setInterval(frame, 10);
 function frame(){
     myGame.update();
+    myGame.initializePowerUps();
 }
 
 let timer_id = setInterval(timer_frame, 1000);

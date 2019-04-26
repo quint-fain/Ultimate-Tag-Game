@@ -30,7 +30,7 @@ class UltimateTagApp {
             }
         });
         window.addEventListener('keyup', () => {
-            if(event.key == 'ArrowDown' || "") {
+            if(event.key == 'ArrowDown') {
                 this.player1.Dspeed = 0;
             }else if (event.key == 'ArrowUp') {
                 this.player1.Uspeed = 0;
@@ -40,6 +40,18 @@ class UltimateTagApp {
                 this.player1.Rspeed = 0;
             }
         });
+        window.addEventListener('keyup', () => {
+            if(event.key == 's') {
+                this.player2.Dspeed = 0;
+            }else if (event.key == 'w') {
+                this.player2.Uspeed = 0;
+            }else if (event.key == 'a') {
+                this.player2.Lspeed = 0;
+            }else if (event.key == 'd') {
+                this.player2.Rspeed = 0;
+            }
+        });
+
     }
 
     assignRoles(){
@@ -63,7 +75,6 @@ class UltimateTagApp {
     update() {
         this.player1.render();
         this.player2.render();
-
         document.getElementById("game_timer").textContent = this.timer.timeLeft;
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
@@ -90,40 +101,25 @@ class Player {
     }
 
     moveLeft(){
-        if (this.Rspeed != 0) {
-            this.Rspeed = 0;
-            this.Lspeed = -1;
-        } else {
-            this.Lspeed = -1;
-        }
+        this.Lspeed = -1;
+
     }
 
     moveRight(){
-        if (this.Lspeed != 0) {
-            this.Lspeed = 0;
-            this.Rspeed = 1;
-        }else {
-            this.Rspeed = 1;
-        }
+        this.Rspeed = 1;
+
     }
 
     moveUp(){
-        if (this.Dspeed != 0) {
-            this.Dspeed = 0;
-            this.Uspeed = -1;
-        }else {
-            this.Uspeed = -1;
-        }
+        this.Uspeed = -1;
+
     }
 
     moveDown(){
-        if (this.Uspeed != 0) {
-            this.Uspeed = 0;
-            this.Dspeed = 1;
-        }else {
-            this.Dspeed = 1;
-        }
+        this.Dspeed = 1;
+
     }
+
 
     render() {
         this.xpos = this.xpos + this.Lspeed + this.Rspeed;
@@ -202,8 +198,10 @@ class Obstacles {
 
 
 class PowerUps {
-    constructor() {
-        this.color = "green";
+    constructor(_id) {
+        this.id = _id;
+        this.xpos = Math.floor(Math.random() * window.innerWidth);
+        this.ypos = Math.floor(Math.random() * window.innerHeight);
     }
 
     moreSpeed(){

@@ -8,7 +8,10 @@ class UltimateTagApp {
         this.player1 = new Player(this.assignRoles());
         this.player2 = new Player(this.assignRoles());
         this.timer = new Timer("game_timer");
+
         this.powerUps = [];
+        this.powerUp_counter = 0;
+        this.numPowerUp = 0;
 
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
@@ -83,22 +86,31 @@ class UltimateTagApp {
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
     }
 
-    addPowerUp(i) {
+    addPowerUp() {
         let pu = document.createElement("div");
         pu.className = "powerUp";
-        pu.id = "powerUp" + i;
+
+
+        pu.id = "powerUp" + this.numPowerUp;
+
+
         body.appendChild(pu);
         this.powerUps.push(new PowerUp(pu.id));
+        this.numPowerUp++;
     }
 
-    initializePowerUps(){
-        for (var i = 0; i < 5; i++) {
-            this.addPowerUp(i);
+    initializePowerUps() {
+        if (this.powerUp_counter == 500) {
+            this.addPowerUp();
+            this.powerUp_counter = 0;
+        } else {
+            this.powerUp_counter++;
         }
     }
 
     removePowerUp() {
-
+        body.removeChild(this.powerUps[this.powerUp_counter].elem);
+        this.powerUp_counter--;
     }
 }
 
@@ -239,11 +251,10 @@ class PowerUp {
 
 let myGame = new UltimateTagApp();
 
-myGame.initializePowerUps();
-
 let game_id = setInterval(frame, 10);
 function frame(){
     myGame.update();
+    myGame.initializePowerUps();
 }
 
 let timer_id = setInterval(timer_frame, 1000);

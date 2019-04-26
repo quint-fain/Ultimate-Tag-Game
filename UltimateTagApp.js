@@ -204,8 +204,9 @@ class Obstacles {
 class PowerUp {
     constructor(_id) {
         this.id = _id;
-        this.xpos = Math.floor(Math.random() * window.innerWidth);
-        this.ypos = Math.floor(Math.random() * window.innerHeight);
+        this.xpos = (Math.floor(Math.random() * window.innerWidth);
+        this.ypos = (Math.floor(Math.random() * window.innerHeight);
+        this.type = 0;
     }
 
     moreSpeed(){

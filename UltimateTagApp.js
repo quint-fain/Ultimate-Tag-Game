@@ -7,7 +7,7 @@ class UltimateTagApp {
         this.player2 = new Player(this.assignRoles());
         this.timer = new Timer("game_timer");
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             this.powerUp+i("powerUp"+i);
         }
 
@@ -201,7 +201,7 @@ class Obstacles {
 
 
 
-class PowerUps {
+class PowerUp {
     constructor(_id) {
         this.id = _id;
         this.xpos = Math.floor(Math.random() * window.innerWidth);

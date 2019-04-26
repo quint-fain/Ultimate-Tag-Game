@@ -29,6 +29,17 @@ class UltimateTagApp {
                 this.player2.moveRight();
             }
         });
+        window.addEventListener('keyup', () => {
+            if(event.key == 'ArrowDown' || "") {
+                this.player1.Dspeed = 0;
+            }else if (event.key == 'ArrowUp') {
+                this.player1.Uspeed = 0;
+            }else if (event.key == 'ArrowLeft') {
+                this.player1.Lspeed = 0;
+            }else if (event.key == 'ArrowRight') {
+                this.player1.Rspeed = 0;
+            }
+        });
     }
 
     assignRoles(){
@@ -70,31 +81,53 @@ class Player {
         this.role = _role;
         this.elem = document.getElementById(this.role);
 
-        this.xspeed = 0;
-        this.yspeed = 0;
+        this.Lspeed = 0;
+        this.Rspeed = 0;
+        this.Uspeed = 0;
+        this.Dspeed = 0;
 
         this.timer = new Timer("player_timer");
     }
 
     moveLeft(){
-        this.xspeed = -1;
+        if (this.Rspeed != 0) {
+            this.Rspeed = 0;
+            this.Lspeed = -1;
+        } else {
+            this.Lspeed = -1;
+        }
     }
 
     moveRight(){
-        this.xspeed = 1;
+        if (this.Lspeed != 0) {
+            this.Lspeed = 0;
+            this.Rspeed = 1;
+        }else {
+            this.Rspeed = 1;
+        }
     }
 
     moveUp(){
-        this.yspeed = -1;
+        if (this.Dspeed != 0) {
+            this.Dspeed = 0;
+            this.Uspeed = -1;
+        }else {
+            this.Uspeed = -1;
+        }
     }
 
     moveDown(){
-        this.yspeed = 1;
+        if (this.Uspeed != 0) {
+            this.Uspeed = 0;
+            this.Dspeed = 1;
+        }else {
+            this.Dspeed = 1;
+        }
     }
 
     render() {
-        this.xpos = this.xpos + this.xspeed;
-        this.ypos = this.ypos + this.yspeed;
+        this.xpos = this.xpos + this.Lspeed + this.Rspeed;
+        this.ypos = this.ypos + this.Uspeed + this.Dspeed;
         this.elem.style.left = this.xpos + "px";
         this.elem.style.top = this.ypos + "px";
     }

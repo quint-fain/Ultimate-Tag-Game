@@ -31,6 +31,7 @@
     border: 3px yellow;
     border-radius: 50%;
     background-color: purple;
+    position: absolute;
 }
 
 h1 {

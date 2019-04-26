@@ -87,15 +87,25 @@ class UltimateTagApp {
     }
 
     addPowerUp() {
+        let pu_type = "";
+
+        let random_num = Math.floor(Math.random() * 2);
+
+        if (random_num == 0) {
+            pu_type = "moreSpeed";
+        } else {
+            pu_type = "invisibility";
+        }
+
         let pu = document.createElement("div");
-        pu.className = "powerUp";
+        pu.className = pu_type;
 
 
         pu.id = "powerUp" + this.numPowerUp;
 
 
         body.appendChild(pu);
-        this.powerUps.push(new PowerUp(pu.id));
+        this.powerUps.push(new PowerUp(pu.id, ));
         this.numPowerUp++;
     }
 
@@ -156,7 +166,6 @@ class Player {
     invisibility(){
 
     }
-
 
     render() {
         this.xpos = this.xpos + this.Lspeed + this.Rspeed;
@@ -235,10 +244,10 @@ class Obstacles {
 
 
 class PowerUp {
-    constructor(_id) {
+    constructor(_id, _type) {
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
-        this.type = 0;
+        this.type = _type;
         this.elem = document.getElementById(_id);
         this.elem.style.top = this.ypos + "px";
         this.elem.style.left = this.xpos + "px";

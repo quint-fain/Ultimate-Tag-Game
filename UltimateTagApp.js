@@ -1,3 +1,5 @@
+let body = document.getElementById("gamespace");
+
 class UltimateTagApp {
     constructor() {
         this.assigned_it = false;
@@ -8,7 +10,11 @@ class UltimateTagApp {
         this.timer = new Timer("game_timer");
 
         for (let i = 0; i < 5; i++) {
-            this.powerUp+i("powerUp"+i);
+            let powerUp = document.createElement("div");
+            powerUp.className = "powerUp";
+            powerUp.id = "powerUp" + i;
+            body.appendChild(powerUp);
+            this.powerUp = new PowerUp(powerUp.id);
         }
 
         window.addEventListener('keydown', () => {
@@ -208,6 +214,9 @@ class PowerUp {
         this.ypos = (Math.floor(Math.random() * window.innerHeight);
         this.type = 0;
     }
+
+
+
 
     moreSpeed(){
 

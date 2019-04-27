@@ -81,8 +81,35 @@ class UltimateTagApp {
         return role;
     }
 
+    collisionBorder(){
+        if (this.player1.xpos >= (window.innerWidth - 51)) {
+            this.player1.xpos = (window.innerWidth - 51)
+        }
+        if (this.player1.xpos <= 0) {
+            this.player1.xpos = 0
+        }
+        if (this.player1.ypos >= (window.innerHeight - 51)) {
+            this.player1.ypos = (window.innerHeight - 51)
+        }
+        if (this.player1.ypos <= 0) {
+            this.player1.ypos = 0
+        }
+        if (this.player2.xpos >= (window.innerWidth - 51)) {
+            this.player2.xpos = (window.innerWidth - 51)
+        }
+        if (this.player2.xpos <= 0) {
+            this.player2.xpos = 0
+        }
+        if (this.player2.ypos >= (window.innerHeight - 51)) {
+            this.player2.ypos = (window.innerHeight - 51)
+        }
+        if (this.player2.ypos <= 0) {
+            this.player2.ypos = 0
+        }
 
-    collision(){
+    }
+
+    collisionPlayers(){
 
     let xd = this.player1.xpos - this.player2.xpos
     let yd = this.player1.ypos - this.player2.ypos
@@ -105,7 +132,8 @@ class UltimateTagApp {
     update() {
         this.player1.render();
         this.player2.render();
-        this.collision();
+        this.collisionPlayers();
+        this.collisionBorder();
         document.getElementById("game_timer").textContent = this.timer.timeLeft;
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;

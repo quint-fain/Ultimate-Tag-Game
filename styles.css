@@ -9,14 +9,6 @@
     transform-origin: center;
 }
 
-.color1 {
-    background-color: green;
-}
-
-.color2 {
-    background-color: blue;
-}
-
 #it {
     border-color: red;
     color: black;
@@ -24,7 +16,6 @@
 }
 
 #notIt {
-    background-color: white;
     border-color: black;
     position:absolute;
 }

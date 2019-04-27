@@ -221,11 +221,14 @@ class Player {
     }
 
     moreSpeed(){
-
+        this.Lspeed = 3;
+        this.Rspeed = 3;
+        this.Uspeed = 3;
+        this.Dspeed = 3;
     }
 
     invisibility(){
-
+        this.p.className = this.p.className + " invisble"
     }
 
     render() {

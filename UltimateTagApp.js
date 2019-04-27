@@ -5,8 +5,8 @@ class UltimateTagApp {
         this.assigned_it = false;
         this.assigned_notIt = false;
 
-        this.player1 = new Player(this.assignRoles());
-        this.player2 = new Player(this.assignRoles());
+        this.player1 = new Player(this.assignRoles(), "P1");
+        this.player2 = new Player(this.assignRoles(), "P2");
         this.timer = new Timer("game_timer");
 
         this.collision_bool = false;
@@ -149,11 +149,19 @@ class UltimateTagApp {
 }
 
 class Player {
-    constructor(_role) {
+    constructor(_role, _p) {
+
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
         this.role = _role;
-        this.elem = document.getElementById(this.role);
+
+        this.p = document.createElement('div');
+        this.p.textContent = _p;
+        this.p.className = 'player';
+        this.p.id = this.role;
+
+        this.elem = body.appendChild(this.p);
+
         this.radius = 25;
         this.Lspeed = 0;
         this.Rspeed = 0;
@@ -196,7 +204,8 @@ class Player {
         this.ypos = this.ypos + this.Uspeed + this.Dspeed;
         this.elem.style.left = this.xpos + "px";
         this.elem.style.top = this.ypos + "px";
-        this.elem = document.getElementById(this.role);
+        this.p.id = this.role;
+
     }
 }
 

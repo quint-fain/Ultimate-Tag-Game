@@ -80,6 +80,7 @@ class UltimateTagApp {
         return role;
     }
 
+
     collision(){
 
     let xd = this.player1.xpos - this.player2.xpos
@@ -195,6 +196,7 @@ class Player {
         this.ypos = this.ypos + this.Uspeed + this.Dspeed;
         this.elem.style.left = this.xpos + "px";
         this.elem.style.top = this.ypos + "px";
+        this.elem = document.getElementById(this.role);
     }
 }
 

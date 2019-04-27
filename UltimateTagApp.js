@@ -83,37 +83,38 @@ class UltimateTagApp {
 
     collisionBorder(){
         if (this.player1.xpos >= (window.innerWidth - 51)) {
-            this.player1.xpos = (window.innerWidth - 51)
+            this.player1.xpos = (window.innerWidth - 51);
         }
         if (this.player1.xpos <= 0) {
-            this.player1.xpos = 0
+            this.player1.xpos = 0;
         }
         if (this.player1.ypos >= (window.innerHeight - 51)) {
-            this.player1.ypos = (window.innerHeight - 51)
+            this.player1.ypos = (window.innerHeight - 51);
         }
         if (this.player1.ypos <= 0) {
-            this.player1.ypos = 0
+            this.player1.ypos = 0;
         }
         if (this.player2.xpos >= (window.innerWidth - 51)) {
-            this.player2.xpos = (window.innerWidth - 51)
+            this.player2.xpos = (window.innerWidth - 51);
         }
         if (this.player2.xpos <= 0) {
-            this.player2.xpos = 0
+            this.player2.xpos = 0;
         }
         if (this.player2.ypos >= (window.innerHeight - 51)) {
-            this.player2.ypos = (window.innerHeight - 51)
+            this.player2.ypos = (window.innerHeight - 51);
         }
         if (this.player2.ypos <= 0) {
-            this.player2.ypos = 0
+            this.player2.ypos = 0;
         }
 
     }
 
     collisionPlayers(){
 
-    let xd = this.player1.xpos - this.player2.xpos
-    let yd = this.player1.ypos - this.player2.ypos
-    let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd))
+        let xd = this.player1.xpos - this.player2.xpos;
+        let yd = this.player1.ypos - this.player2.ypos;
+        let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
+
         if (distanceBtwn <= this.player1.radius + this.player2.radius){
             if (this.player1.role == "it" && this.collision_bool == false) {
                 this.player1.role = "notIt";
@@ -128,6 +129,7 @@ class UltimateTagApp {
             this.collision_bool = false;
         }
     }
+
 
     update() {
         this.player1.render();
@@ -158,7 +160,7 @@ class UltimateTagApp {
 
 
         body.appendChild(pu);
-        this.powerUps.push(new PowerUp(pu.id, ));
+        this.powerUps.push(new PowerUp(pu.id, "type"));
         this.numPowerUp++;
     }
 
@@ -220,6 +222,17 @@ class Player {
 
     }
 
+    collisionPowerUps() {
+        //the following lines of code do not work right now because the powerUps[] array doesn't actaully have any powerUp objects in it until five seconds have passed and this code is being called every 10 milliseconds so there's an error
+        let xd = this.xpos - myGame.powerUps[myGame.numPowerUp].xpos;
+        let yd = this.ypos - myGame.powerUps[myGame.numPowerUp].ypos;
+        let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
+
+        if (distanceBtwn <= this.radius + myGame.powerUps[myGame.numPowerUp].radius) {
+            myGame.removePowerUp();
+        }
+    }
+
     moreSpeed(){
 
     }
@@ -234,7 +247,7 @@ class Player {
         this.elem.style.left = this.xpos + "px";
         this.elem.style.top = this.ypos + "px";
         this.p.id = this.role;
-
+        this.collisionPowerUps();
     }
 }
 
@@ -273,7 +286,7 @@ class Timer {
             endscreen.modal('hide');
         } else {
             clearInterval(timer_id);
-            endscreen.modal('show');
+            //endscreen.modal('show');
             //this will be where the whole game should reset/winner should be displayed on the screen
         }
     }

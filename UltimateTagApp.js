@@ -1,4 +1,5 @@
 let body = document.getElementById("gamespace");
+let endscreen = document.getElementById('endscreen');
 
 class UltimateTagApp {
     constructor() {
@@ -241,8 +242,10 @@ class Timer {
     countdown() {
         if (this.timeLeft > 0) {
             this.timeLeft--;
+            endscreen.modal('hide');
         } else {
             clearInterval(timer_id);
+            endscreen.modal('show');
             //this will be where the whole game should reset/winner should be displayed on the screen
         }
     }

@@ -234,8 +234,8 @@ class Timer {
     constructor(_id) {
         this.id = _id;
         this.elem = document.getElementById(this.id);
-        this.timeLeft = 61
-        this.timeEllapsed = -1;
+        this.timeLeft = 60
+        this.timeEllapsed = 0;
     }
 
     countdown() {

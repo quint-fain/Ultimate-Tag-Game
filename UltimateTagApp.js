@@ -173,8 +173,9 @@ class UltimateTagApp {
         }
     }
 
-    removePowerUp() {
-        body.removeChild(this.powerUps[this.powerUp_counter].elem);
+    removePowerUp(_thePowerUp) {
+
+        document.body.removeChild(myGame.powerUps[_thePowerUp].elem);
         this.powerUp_counter--;
     }
 }
@@ -223,13 +224,14 @@ class Player {
     }
 
     collisionPowerUps() {
-        //the following lines of code do not work right now because the powerUps[] array doesn't actaully have any powerUp objects in it until five seconds have passed and this code is being called every 10 milliseconds so there's an error
-        let xd = this.xpos - myGame.powerUps[myGame.numPowerUp].xpos;
-        let yd = this.ypos - myGame.powerUps[myGame.numPowerUp].ypos;
-        let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
+        for (var i = 0; i < myGame.numPowerUp; i++) {
+            let xd = this.xpos - myGame.powerUps[i].xpos;
+            let yd = this.ypos - myGame.powerUps[i].ypos;
+            let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
+            if (distanceBtwn <= this.radius + myGame.powerUps[i].radius) {
+                myGame.removePowerUp(i);
 
-        if (distanceBtwn <= this.radius + myGame.powerUps[myGame.numPowerUp].radius) {
-            myGame.removePowerUp();
+            }
         }
     }
 
@@ -286,7 +288,7 @@ class Timer {
     countdown() {
         if (this.timeLeft > 0) {
             this.timeLeft--;
-            endscreen.modal('hide');
+            //endscreen.modal('hide');
         } else {
             clearInterval(timer_id);
             //endscreen.modal('show');

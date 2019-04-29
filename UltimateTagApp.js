@@ -173,9 +173,9 @@ class UltimateTagApp {
         }
     }
 
-    removePowerUp(_thePowerUp) {
-
-        document.body.removeChild(myGame.powerUps[_thePowerUp].elem);
+    removePowerUp(i) {
+        let x = document.getElementById(myGame.powerUps[i].elem);
+        x.remove();
         this.powerUp_counter--;
     }
 }

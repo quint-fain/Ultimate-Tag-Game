@@ -149,7 +149,7 @@ class UltimateTagApp {
         if (random_num == 0) {
             pu_type = "moreSpeed";
         } else {
-            pu_type = "invisibility";
+            pu_type = "invisibile";
         }
 
         let pu = document.createElement("div");
@@ -160,7 +160,7 @@ class UltimateTagApp {
 
 
         body.appendChild(pu);
-        this.powerUps.push(new PowerUp(pu.id, "type"));
+        this.powerUps.push(new PowerUp(pu.id, pu_type));
         this.numPowerUp++;
     }
 
@@ -175,7 +175,7 @@ class UltimateTagApp {
 
     removePowerUp(_thePowerUp) {
 
-        document.body.removeChild(myGame.powerUps[_thePowerUp].elem);
+        body.removeChild(_thePowerUp);
         this.powerUp_counter--;
     }
 }
@@ -201,25 +201,41 @@ class Player {
         this.Dspeed = 0;
 
         this.timer = new Timer("player_timer");
+
+        this.moreSpeed = false;
     }
 
     moveLeft(){
-        this.Lspeed = -1;
-
+        if (this.moreSpeed) {
+            this.Lspeed = -3;
+        } else {
+            this.Lspeed = -1;
+        }
     }
 
     moveRight(){
-        this.Rspeed = 1;
-
+        if (this.moreSpeed) {
+            this.Rspeed = 3;
+        } else {
+            this.Rspeed = 1;
+        }
     }
 
     moveUp(){
-        this.Uspeed = -1;
+        if (this.moreSpeed) {
+            this.Uspeed = -3;
+        } else {
+            this.Uspeed = -1;
+        }
 
     }
 
     moveDown(){
-        this.Dspeed = 1;
+        if (this.moreSpeed) {
+            this.Dspeed = 3;
+        } else {
+            this.Dspeed = 1;
+        }
 
     }
 
@@ -229,21 +245,21 @@ class Player {
             let yd = this.ypos - myGame.powerUps[i].ypos;
             let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
             if (distanceBtwn <= this.radius + myGame.powerUps[i].radius) {
-                myGame.removePowerUp(i);
+                myGame.removePowerUp(myGame.powerUps[i].elem);
+
+                if (myGame.powerUps[i].type == "moreSpeed") {
+                    this.moreSpeed = true;
+                } else if (myGame.powerUps[i].type == "invisible") {
+                    this.invisibile();
+                }
 
             }
         }
     }
 
-    moreSpeed(){
-        this.Lspeed = 3;
-        this.Rspeed = 3;
-        this.Uspeed = 3;
-        this.Dspeed = 3;
-    }
 
-    invisibility(){
-        this.p.className = this.p.className + " invisble"
+    invisibile(){
+        this.p.className = "invisible";
     }
 
     render() {

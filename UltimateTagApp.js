@@ -1,4 +1,4 @@
-let body = document.getElementById("gamespace");
+let gamespace = document.getElementById("gamespace");
 let endscreen = document.getElementById('endscreen');
 
 class UltimateTagApp {
@@ -157,7 +157,7 @@ class UltimateTagApp {
         let pu = document.createElement("div");
         pu.className = pu_type;
         pu.id = "powerUp" + this.numPowerUp;
-        body.appendChild(pu);
+        gamespace.appendChild(pu);
         this.powerUps.push(new PowerUp(pu.id, pu_type));
         this.numPowerUp++;
     }
@@ -171,8 +171,14 @@ class UltimateTagApp {
         }
     }
 
-    removePowerUp(_thePowerUp) {
-        body.removeChild(_thePowerUp);
+    removePowerUp(_pu) {
+        gamespace.removeChild(_pu.id);
+        console.log(_pu.id)
+        for(let i = 0; i < this.powerUps.length; i++) {
+            if(this.powerUps[i].id == _pu.id){
+                _pu = null;
+            }
+        }
         this.powerUp_counter--;
     }
 
@@ -199,7 +205,7 @@ class Player {
         this.p.className = 'player';
         this.p.id = this.role;
 
-        this.elem = body.appendChild(this.p);
+        this.elem = gamespace.appendChild(this.p);
 
         this.radius = 25;
         this.Lspeed = 0;
@@ -254,7 +260,7 @@ class Player {
             let yd = this.ypos - myGame.powerUps[i].ypos;
             let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
             if (distanceBtwn <= this.radius + myGame.powerUps[i].radius) {
-                myGame.removePowerUp(myGame.powerUps[i].elem);
+                myGame.removePowerUp(myGame.powerUps[i]);
 
                 if (myGame.powerUps[i].type == "moreSpeed") {
                     this.moreSpeed = true;
@@ -363,11 +369,12 @@ class Obstacles {
 
 class PowerUp {
     constructor(_id, _type) {
+        this.id = _id
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
         this.radius = 15;
         this.type = _type;
-        this.elem = document.getElementById(_id);
+        this.elem = document.getElementById(this.id);
         this.elem.style.top = this.ypos + "px";
         this.elem.style.left = this.xpos + "px";
     }

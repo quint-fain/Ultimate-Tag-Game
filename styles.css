@@ -41,16 +41,16 @@
 .moreSpeed {
     width: 30px;
     height: 30px;
-    border: 3px yellow;
+    border: 1px solid lightgreen;
     border-radius: 50%;
     background-color: purple;
     position: absolute;
 }
 
-.invisibile {
+.invincible {
     width: 30px;
     height: 30px;
-    border: 3px yellow;
+    border: 1px solid lightgreen;
     border-radius: 50%;
     background-color: yellow;
     position: absolute;

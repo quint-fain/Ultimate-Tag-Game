@@ -116,49 +116,47 @@ class UltimateTagApp {
         let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
 
         if (distanceBtwn <= this.player1.radius + this.player2.radius){
-            if (this.player1.role == "it" && this.collision_bool == false) {
-                this.player1.role = "notIt";
-                this.player2.role = "it";
-                this.collision_bool = true;
-            }else if (this.collision_bool == false){
-                this.player2.role = "notIt";
-                this.player1.role = "it";
-                this.collision_bool = true;
+            if (!this.player1.invincible && !this.player2.invincible) {
+                if (this.player1.role == "it" && this.collision_bool == false) {
+                    this.player1.role = "notIt";
+                    this.player2.role = "it";
+                    this.collision_bool = true;
+                }else if (this.collision_bool == false){
+                    this.player2.role = "notIt";
+                    this.player1.role = "it";
+                    this.collision_bool = true;
+                }
+            } else if (this.player1.invincible && !this.player2.invincible) {
+                if (this.player1.role == "it" && !this.collision_bool) {
+                    this.player1.role = "notIt";
+                    this.player2.role = "it";
+                    this.collision_bool = true;
+                }
+            } else if (!this.player1.invincible && this.player2.invincible) {
+                if (this.player2.role == "it" && !this.collision_bool) {
+                    this.player1.role = "it";
+                    this.player2.role = "notIt";
+                    this.collision_bool = true;
+                }
             }
         } else {
             this.collision_bool = false;
         }
     }
 
-
-    update() {
-        this.player1.render();
-        this.player2.render();
-        this.collisionPlayers();
-        this.collisionBorder();
-        document.getElementById("game_timer").textContent = this.timer.timeLeft;
-        document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
-        document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
-    }
-
     addPowerUp() {
         let pu_type = "";
-
         let random_num = Math.floor(Math.random() * 2);
 
         if (random_num == 0) {
             pu_type = "moreSpeed";
         } else {
-            pu_type = "invisibile";
+            pu_type = "invincible";
         }
 
         let pu = document.createElement("div");
         pu.className = pu_type;
-
-
         pu.id = "powerUp" + this.numPowerUp;
-
-
         body.appendChild(pu);
         this.powerUps.push(new PowerUp(pu.id, pu_type));
         this.numPowerUp++;
@@ -174,9 +172,18 @@ class UltimateTagApp {
     }
 
     removePowerUp(_thePowerUp) {
-
         body.removeChild(_thePowerUp);
         this.powerUp_counter--;
+    }
+
+    update() {
+        this.player1.render();
+        this.player2.render();
+        this.collisionPlayers();
+        this.collisionBorder();
+        document.getElementById("game_timer").textContent = this.timer.timeLeft;
+        document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
+        document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
     }
 }
 
@@ -203,6 +210,8 @@ class Player {
         this.timer = new Timer("player_timer");
 
         this.moreSpeed = false;
+        this.invincible = false;
+        this.puCount = 0;
     }
 
     moveLeft(){
@@ -249,17 +258,28 @@ class Player {
 
                 if (myGame.powerUps[i].type == "moreSpeed") {
                     this.moreSpeed = true;
-                } else if (myGame.powerUps[i].type == "invisible") {
-                    this.invisibile();
+                } else if (myGame.powerUps[i].type == "invincible") {
+                    this.invincible = true;
                 }
 
             }
         }
     }
 
+    puCounter() {
+        if (this.moreSpeed && this.puCount <= 300) {
+            this.puCount++;
+        } else {
+            this.moreSpeed = false;
+            this.puCount = 0;
+        }
 
-    invisibile(){
-        this.p.className = "invisible";
+        if (this.invincible && this.puCount <= 300) {
+            this.puCount++;
+        } else {
+            this.invincible = false;
+            this.puCount = 0;
+        }
     }
 
     render() {
@@ -269,6 +289,7 @@ class Player {
         this.elem.style.top = this.ypos + "px";
         this.p.id = this.role;
         this.collisionPowerUps();
+        this.puCounter();
     }
 }
 
@@ -366,7 +387,7 @@ function frame(){
 
 let timer_id = setInterval(timer_frame, 1000);
 function timer_frame() {
-    if (myGame.player1.role == "it") {
+    if (myGame.player1.role == "notIt") {
         myGame.player1.timer.countup();
     } else {
         myGame.player2.timer.countup();

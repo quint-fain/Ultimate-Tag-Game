@@ -4,6 +4,13 @@ let gs_height = gs_dimensions.height;
 let gs_width = gs_dimensions.width;
 let gs_top = gs_dimensions.top;
 
+let restartBtn = document.getElementById('restart');
+let helpBtn = document.getElementById('help');
+let menuBtn = document.getElementById('menu');
+restartBtn.style.display = 'none';
+helpBtn.style.display = 'none';
+menuBtn.style.display = 'none';
+
 class UltimateTagApp {
     constructor() {
         this.assigned_it = false;
@@ -381,18 +388,13 @@ function gameOver() {
             outcome.textContent = "Player 2 is the WINNER!!! Click the refresh button to restart.";
         }
 
-        let helpBtn = document.createElement('BUTTON');
-        helpBtn.textContent = "Confused?";
-        helpBtn.className = "btn btn-secondary";
-        helpBtn.setAttribute('onlick', 'window.location.href = help.html');
-
-        let menuBtn = document.createElement('BUTTON');
-        menuBtn.textContent = "Menu";
-        menuBtn.className = "btn btn-secondary";
-        menuBtn.setAttribute('onlick', 'window.location.href = menu.html');
+        restartBtn.style.display = "inline";
+        helpBtn.style.display = "inline";
+        menuBtn.style.display = "inline";
 
         gamespace.appendChild(endscreen);
         endscreen.appendChild(outcome);
+        endscreen.appendChild(restartBtn);
         endscreen.appendChild(helpBtn);
         endscreen.appendChild(menuBtn);
     }

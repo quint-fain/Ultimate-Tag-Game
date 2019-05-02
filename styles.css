@@ -13,11 +13,10 @@
     height: 100%;
     width: 100%;
     margin: 0;
-    z-index: 999;
 }
 
 .btn {
-    margin: auto 20px auto auto;
+    margin: 20px 20px 20px 20px;
 }
 
 #gamespace {
@@ -28,10 +27,9 @@
 }
 
 #scoreboard {
-    border: 1px solid red;
     height: 7.5%;
     width: 100%;
-    margin: 0;
+    margin: auto auto auto auto;
 }
 
 body, html{

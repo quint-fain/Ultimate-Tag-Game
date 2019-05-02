@@ -9,6 +9,10 @@
     transform-origin: center;
 }
 
+.mp1 {
+    background-image: url('http://clipart-library.com/images/AibragM8T.jpg');
+}
+
 #it {
     border-color: red;
     color: black;

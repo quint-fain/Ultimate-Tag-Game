@@ -410,7 +410,7 @@ function frame(){
     myGame.initializePowerUps();
 }
 
-let timer_id = setInterval(timer_frame, 100);
+let timer_id = setInterval(timer_frame, 1000);
 function timer_frame() {
     if (myGame.player1.role == "notIt") {
         myGame.player1.timer.countup();

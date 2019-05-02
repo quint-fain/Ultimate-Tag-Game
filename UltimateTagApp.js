@@ -186,36 +186,7 @@ class UltimateTagApp {
         this.numPowerUp = this.powerUps.length;
     }
 
-    gameOver() {
-        //let gameOver = document.getElementById('gameOver');
 
-        let endscreen = document.createElement('div');
-        endscreen.className = "jumbotron";
-
-        let outcome = document.createElement('div');
-        outcome.textContent = "Player 1 was It for " + this.player2.timer.timeEllapsed + " seconds, and Player 2 was It for " + this.player1.timer.timeEllapsed + " seconds.";
-
-        let restartBtn = document.createElement('btn');
-        restartBtn.textContent = "Restart";
-        restartBtn.className = "btn btn-primary";
-        //restartBtn.addEventListener("click", window.location.href = 'map1.html');
-
-        let helpBtn = document.createElement('btn');
-        helpBtn.textContent = "Confused?";
-        helpBtn.className = "btn btn-secondary";
-        //restartBtn.addEventListener("click", window.location.href = 'help.html');
-
-        let menuBtn = document.createElement('btn');
-        menuBtn.textContent = "Menu";
-        menuBtn.className = "btn btn-secondary";
-        //restartBtn.addEventListener("click", window.location.href = 'menu.html');
-
-        gamespace.appendChild(endscreen);
-        endscreen.appendChild(outcome);
-        endscreen.appendChild(restartBtn);
-        endscreen.appendChild(helpBtn);
-        endscreen.appendChild(menuBtn);
-    }
 
     update() {
         this.player1.render();
@@ -361,7 +332,7 @@ class Timer {
             while (gamespace.firstChild) {
                 gamespace.removeChild(gamespace.firstChild);
             }
-            myGame.gameOver();
+            gameOver();
         }
     }
 
@@ -388,6 +359,43 @@ class PowerUp {
     }
 }
 
+
+
+
+
+function gameOver() {
+        //let gameOver = document.getElementById('gameOver');
+
+        let endscreen = document.createElement('div');
+        endscreen.className = "jumbotron";
+
+        let outcome = document.createElement('div');
+        outcome.textContent = "";
+        outcome.className = "alert alert-primary";
+
+        if (myGame.player1.timer.timeEllapsed == myGame.player2.timer.timeEllapsed) {
+            outcome.textContent = "The game was a tie, how disapointing, better play again! Click the refresh button to restart.";
+        } else if (myGame.player1.timer.timeEllapsed > myGame.player2.timer.timeEllapsed) {
+            outcome.textContent = "Player 1 is the WINNER!!! Click the refresh button to restart.";
+        } else {
+            outcome.textContent = "Player 2 is the WINNER!!! Click the refresh button to restart.";
+        }
+
+        let helpBtn = document.createElement('BUTTON');
+        helpBtn.textContent = "Confused?";
+        helpBtn.className = "btn btn-secondary";
+        helpBtn.setAttribute('onlick', 'window.location.href = help.html');
+
+        let menuBtn = document.createElement('BUTTON');
+        menuBtn.textContent = "Menu";
+        menuBtn.className = "btn btn-secondary";
+        menuBtn.setAttribute('onlick', 'window.location.href = menu.html');
+
+        gamespace.appendChild(endscreen);
+        endscreen.appendChild(outcome);
+        endscreen.appendChild(helpBtn);
+        endscreen.appendChild(menuBtn);
+    }
 
 
 

@@ -6,7 +6,28 @@
     text-align: center;
     padding: 50% auto 50% auto;
     position: absolute;
-    transform-origin: center;
+
+}
+
+.jumbotron {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    z-index: -1;
+}
+
+#gamespace {
+    border: 1px solid red;
+    height: 92.5%;
+    width: 100%;
+    margin: 0;
+}
+
+#scoreboard {
+    border: 1px solid red;
+    height: 7.5%;
+    width: 100%;
+    margin: 0;
 }
 
 body, html{

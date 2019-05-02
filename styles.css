@@ -79,6 +79,7 @@ body, html{
 h1 {
     margin: 0 auto;
     color: red;
+    text-align: center;
 }
 
 .btn {
@@ -91,6 +92,10 @@ h1 {
 .row {
     margin: auto auto 50px auto;
     text-align: center;
+}
+
+.rowfix {
+    margin: auto;
 }
 
 .p-help {

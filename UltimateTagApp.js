@@ -4,8 +4,6 @@ let gs_height = gs_dimensions.height;
 let gs_width = gs_dimensions.width;
 let gs_top = gs_dimensions.top;
 
-let outcome = document.getElementById("outcome");
-
 class UltimateTagApp {
     constructor() {
         this.assigned_it = false;
@@ -188,6 +186,37 @@ class UltimateTagApp {
         this.numPowerUp = this.powerUps.length;
     }
 
+    gameOver() {
+        //let gameOver = document.getElementById('gameOver');
+
+        let endscreen = document.createElement('div');
+        endscreen.className = "jumbotron";
+
+        let outcome = document.createElement('div');
+        outcome.textContent = "Player 1 was It for " + this.player2.timer.timeEllapsed + " seconds, and Player 2 was It for " + this.player1.timer.timeEllapsed + " seconds.";
+
+        let restartBtn = document.createElement('btn');
+        restartBtn.textContent = "Restart";
+        restartBtn.className = "btn btn-primary";
+        //restartBtn.addEventListener("click", window.location.href = 'map1.html');
+
+        let helpBtn = document.createElement('btn');
+        helpBtn.textContent = "Confused?";
+        helpBtn.className = "btn btn-secondary";
+        //restartBtn.addEventListener("click", window.location.href = 'help.html');
+
+        let menuBtn = document.createElement('btn');
+        menuBtn.textContent = "Menu";
+        menuBtn.className = "btn btn-secondary";
+        //restartBtn.addEventListener("click", window.location.href = 'menu.html');
+
+        gamespace.appendChild(endscreen);
+        endscreen.appendChild(outcome);
+        endscreen.appendChild(restartBtn);
+        endscreen.appendChild(helpBtn);
+        endscreen.appendChild(menuBtn);
+    }
+
     update() {
         this.player1.render();
         this.player2.render();
@@ -328,8 +357,11 @@ class Timer {
             this.timeLeft--;
         } else {
             clearInterval(timer_id);
-            window.location.href = "endscreen.html";
-            outcome.textContent = "Player 1 was it for " + this.player2.timer.timeEllapsed + " seconds, and Player 2 was it for " + this.player1.timer.timeEllapsed + " seconds.";
+            clearInterval(game_id);
+            while (gamespace.firstChild) {
+                gamespace.removeChild(gamespace.firstChild);
+            }
+            myGame.gameOver();
         }
     }
 
@@ -368,7 +400,7 @@ function frame(){
     myGame.initializePowerUps();
 }
 
-let timer_id = setInterval(timer_frame, 1000);
+let timer_id = setInterval(timer_frame, 100);
 function timer_frame() {
     if (myGame.player1.role == "notIt") {
         myGame.player1.timer.countup();

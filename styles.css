@@ -34,7 +34,8 @@ body, html{
 
 .mp1 {
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTFvyi18YKbE8n6tWDiyACmYK_z9xhptHzBxZDVUkN_ddydRW6');
-     height: 100%;
+    height: auto;
+    width: auto
     background-position: center;
     background-repeat: no-repeat;
 }

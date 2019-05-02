@@ -41,7 +41,7 @@ body, html{
 }
 
 .menubg {
-    background-image: url("https://live.staticflickr.com/7034/6387951985_69805702d4.jpg");
+    background-color: burlywood;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;

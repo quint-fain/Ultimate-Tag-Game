@@ -14,7 +14,7 @@ class UltimateTagApp {
 
         this.powerUps = [];
         this.powerUp_counter = 0;
-        this.numPowerUp = 0;
+        this.numPowerUp = this.powerUps.length;
 
         window.addEventListener('keydown', () => {
             if(event.key == 'ArrowDown') {
@@ -144,6 +144,8 @@ class UltimateTagApp {
         }
     }
 
+
+
     addPowerUp() {
         let pu_type = "";
         let random_num = Math.floor(Math.random() * 2);
@@ -154,12 +156,15 @@ class UltimateTagApp {
             pu_type = "invincible";
         }
 
-        let pu = document.createElement("div");
-        pu.className = pu_type;
-        pu.id = "powerUp" + this.numPowerUp;
-        gamespace.appendChild(pu);
-        this.powerUps.push(new PowerUp(pu.id, pu_type));
-        this.numPowerUp++;
+        let pu_id = "powerUp" + this.numPowerUp;
+
+        this.powerUps.push(new PowerUp(pu_id, pu_type));
+        gamespace.appendChild(this.powerUps[this.numPowerUp].elem);
+
+        //let pu = new PowerUp(pu_id, pu_type);
+        //gamespace.appendChild(pu.elem);
+
+        this.numPowerUp = this.powerUps.length;
     }
 
     initializePowerUps() {
@@ -171,15 +176,16 @@ class UltimateTagApp {
         }
     }
 
-    removePowerUp(_pu) {
-        gamespace.removeChild(_pu.id);
-        console.log(_pu.id)
-        for(let i = 0; i < this.powerUps.length; i++) {
-            if(this.powerUps[i].id == _pu.id){
-                _pu = null;
-            }
-        }
-        this.powerUp_counter--;
+    removePowerUp(pu, numPu) {
+        gamespace.removeChild(pu.elem);
+
+
+        //this is the power up in the power up array that was hit by the player
+        this.powerUps.splice(numPu, 1);
+
+
+
+        this.numPowerUp = this.powerUps.length;
     }
 
     update() {
@@ -217,7 +223,8 @@ class Player {
 
         this.moreSpeed = false;
         this.invincible = false;
-        this.puCount = 0;
+        this.moreSpeedCount = 0;
+        this.invincibleCount = 0;
     }
 
     moveLeft(){
@@ -260,7 +267,8 @@ class Player {
             let yd = this.ypos - myGame.powerUps[i].ypos;
             let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
             if (distanceBtwn <= this.radius + myGame.powerUps[i].radius) {
-                myGame.removePowerUp(myGame.powerUps[i]);
+
+                myGame.removePowerUp(myGame.powerUps[i], i);
 
                 if (myGame.powerUps[i].type == "moreSpeed") {
                     this.moreSpeed = true;
@@ -273,18 +281,18 @@ class Player {
     }
 
     puCounter() {
-        if (this.moreSpeed && this.puCount <= 300) {
-            this.puCount++;
+        if (this.moreSpeed && this.moreSpeedCount <= 300) {
+            this.moreSpeedCount++;
         } else {
             this.moreSpeed = false;
-            this.puCount = 0;
+            this.moreSpeedCount = 0;
         }
 
-        if (this.invincible && this.puCount <= 300) {
-            this.puCount++;
+        if (this.invincible && this.invincibleCount <= 300) {
+            this.invincibleCount++;
         } else {
             this.invincible = false;
-            this.puCount = 0;
+            this.invincibleCount = 0;
         }
     }
 
@@ -299,22 +307,6 @@ class Player {
     }
 }
 
-
-
-
-
-/*
-class Scoreboard {
-    constructor() {
-        this.timer = new Timer();
-        this.score = 0;
-    }
-
-    updateScore(){
-
-    }
-}
-*/
 
 
 
@@ -374,9 +366,14 @@ class PowerUp {
         this.ypos = (Math.random() * window.innerHeight);
         this.radius = 15;
         this.type = _type;
-        this.elem = document.getElementById(this.id);
+
+        this.elem = document.createElement('div');
         this.elem.style.top = this.ypos + "px";
         this.elem.style.left = this.xpos + "px";
+        this.elem.className = _type;
+
+        //don't think the id matters at all rn
+        this.elem.id = _id;
     }
 }
 

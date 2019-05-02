@@ -9,17 +9,6 @@
     transform-origin: center;
 }
 
-.invisible {
-    border: 5px solid green;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    padding: 50% auto 50% auto;
-    position: absolute;
-    transform-origin: center;
-}
-
 #it {
     border-color: red;
     color: black;

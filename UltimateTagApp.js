@@ -1,5 +1,10 @@
 let gamespace = document.getElementById("gamespace");
-let endscreen = document.getElementById('endscreen');
+let gs_dimensions = gamespace.getBoundingClientRect();
+let gs_height = gs_dimensions.height;
+let gs_width = gs_dimensions.width;
+let gs_top = gs_dimensions.top;
+
+let outcome = document.getElementById("outcome");
 
 class UltimateTagApp {
     constructor() {
@@ -82,29 +87,29 @@ class UltimateTagApp {
     }
 
     collisionBorder(){
-        if (this.player1.xpos >= (window.innerWidth - 51)) {
-            this.player1.xpos = (window.innerWidth - 51);
+        if (this.player1.xpos >= (gs_width - 51)) {
+            this.player1.xpos = (gs_width - 51);
         }
         if (this.player1.xpos <= 0) {
             this.player1.xpos = 0;
         }
-        if (this.player1.ypos >= (window.innerHeight - 51)) {
-            this.player1.ypos = (window.innerHeight - 51);
+        if (this.player1.ypos >= (gs_height + gs_top - 51)) {
+            this.player1.ypos = (gs_height + gs_top - 51);
         }
-        if (this.player1.ypos <= 0) {
-            this.player1.ypos = 0;
+        if (this.player1.ypos <= gs_top) {
+            this.player1.ypos = gs_top;
         }
-        if (this.player2.xpos >= (window.innerWidth - 51)) {
-            this.player2.xpos = (window.innerWidth - 51);
+        if (this.player2.xpos >= (gs_width - 51)) {
+            this.player2.xpos = (gs_width - 51);
         }
         if (this.player2.xpos <= 0) {
             this.player2.xpos = 0;
         }
-        if (this.player2.ypos >= (window.innerHeight - 51)) {
-            this.player2.ypos = (window.innerHeight - 51);
+        if (this.player2.ypos >= (gs_height + gs_top - 51)) {
+            this.player2.ypos = (gs_height + gs_top - 51);
         }
-        if (this.player2.ypos <= 0) {
-            this.player2.ypos = 0;
+        if (this.player2.ypos <= gs_top) {
+            this.player2.ypos = gs_top;
         }
 
     }
@@ -191,14 +196,20 @@ class UltimateTagApp {
         document.getElementById("game_timer").textContent = this.timer.timeLeft;
         document.getElementById("player1_timer").textContent = this.player1.timer.timeEllapsed;
         document.getElementById("player2_timer").textContent = this.player2.timer.timeEllapsed;
+
+        //gamespace updating if the window size is changed during the game
+        gs_dimensions = gamespace.getBoundingClientRect();
+        gs_height = gs_dimensions.height;
+        gs_width = gs_dimensions.width;
+        gs_top = gs_dimensions.top;
     }
 }
 
 class Player {
     constructor(_role, _p) {
 
-        this.xpos = (Math.random() * window.innerWidth);
-        this.ypos = (Math.random() * window.innerHeight);
+        this.xpos = (Math.random() * gs_width);
+        this.ypos = (Math.random() * gs_height) + gs_top;
         this.role = _role;
 
         this.p = document.createElement('div');
@@ -315,11 +326,10 @@ class Timer {
     countdown() {
         if (this.timeLeft > 0) {
             this.timeLeft--;
-            //endscreen.modal('hide');
         } else {
             clearInterval(timer_id);
-            //endscreen.modal('show');
-            //this will be where the whole game should reset/winner should be displayed on the screen
+            window.location.href = "endscreen.html";
+            outcome.textContent = "Player 1 was it for " + this.player2.timer.timeEllapsed + " seconds, and Player 2 was it for " + this.player1.timer.timeEllapsed + " seconds.";
         }
     }
 
@@ -332,29 +342,10 @@ class Timer {
 
 
 
-class Obstacles {
-    constructor(_color) {
-        this.color = _color;
-    }
-
-    slowPlayer(){
-
-    }
-
-    fasterEnemies(){
-
-    }
-
-}
-
-
-
-
-
 class PowerUp {
     constructor(_type) {
-        this.xpos = (Math.random() * window.innerWidth);
-        this.ypos = (Math.random() * window.innerHeight);
+        this.xpos = (Math.random() * gs_width);
+        this.ypos = (Math.random() * gs_height) + gs_top;
         this.radius = 15;
         this.type = _type;
 

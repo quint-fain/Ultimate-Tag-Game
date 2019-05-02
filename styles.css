@@ -102,6 +102,10 @@ h1 {
     margin: auto 15%;
 }
 
+.alert {
+    text-align: center;
+}
+
 .pu-help {
     margin: 5% 25%;
 }

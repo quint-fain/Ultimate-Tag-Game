@@ -156,13 +156,8 @@ class UltimateTagApp {
             pu_type = "invincible";
         }
 
-        let pu_id = "powerUp" + this.numPowerUp;
-
-        this.powerUps.push(new PowerUp(pu_id, pu_type));
+        this.powerUps.push(new PowerUp(pu_type));
         gamespace.appendChild(this.powerUps[this.numPowerUp].elem);
-
-        //let pu = new PowerUp(pu_id, pu_type);
-        //gamespace.appendChild(pu.elem);
 
         this.numPowerUp = this.powerUps.length;
     }
@@ -267,15 +262,12 @@ class Player {
             let yd = this.ypos - myGame.powerUps[i].ypos;
             let distanceBtwn = Math.sqrt((xd * xd) + (yd * yd));
             if (distanceBtwn <= this.radius + myGame.powerUps[i].radius) {
-
-                myGame.removePowerUp(myGame.powerUps[i], i);
-
                 if (myGame.powerUps[i].type == "moreSpeed") {
                     this.moreSpeed = true;
                 } else if (myGame.powerUps[i].type == "invincible") {
                     this.invincible = true;
                 }
-
+                myGame.removePowerUp(myGame.powerUps[i], i);
             }
         }
     }
@@ -360,8 +352,7 @@ class Obstacles {
 
 
 class PowerUp {
-    constructor(_id, _type) {
-        this.id = _id
+    constructor(_type) {
         this.xpos = (Math.random() * window.innerWidth);
         this.ypos = (Math.random() * window.innerHeight);
         this.radius = 15;
@@ -371,9 +362,6 @@ class PowerUp {
         this.elem.style.top = this.ypos + "px";
         this.elem.style.left = this.xpos + "px";
         this.elem.className = _type;
-
-        //don't think the id matters at all rn
-        this.elem.id = _id;
     }
 }
 

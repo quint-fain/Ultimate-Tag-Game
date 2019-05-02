@@ -381,16 +381,16 @@ function gameOver() {
         outcome.className = "alert alert-primary";
 
         if (myGame.player1.timer.timeEllapsed == myGame.player2.timer.timeEllapsed) {
-            outcome.textContent = "The game was a tie, how disapointing, better play again! Click the refresh button to restart.";
+            outcome.textContent = "The game was a tie, how disapointing, better play again!";
         } else if (myGame.player1.timer.timeEllapsed > myGame.player2.timer.timeEllapsed) {
-            outcome.textContent = "Player 1 is the WINNER!!! Click the refresh button to restart.";
+            outcome.textContent = "Player 1 is the WINNER!!!";
         } else {
-            outcome.textContent = "Player 2 is the WINNER!!! Click the refresh button to restart.";
+            outcome.textContent = "Player 2 is the WINNER!!!";
         }
 
-        restartBtn.style.display = "inline";
-        helpBtn.style.display = "inline";
-        menuBtn.style.display = "inline";
+        restartBtn.style.display = "block";
+        helpBtn.style.display = "block";
+        menuBtn.style.display = "block";
 
         gamespace.appendChild(endscreen);
         endscreen.appendChild(outcome);

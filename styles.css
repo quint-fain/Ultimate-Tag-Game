@@ -15,10 +15,6 @@
     margin: 0;
 }
 
-.btn {
-    margin: 20px 20px 20px 20px;
-}
-
 #gamespace {
     border: 1px solid red;
     height: 92.5%;
@@ -62,13 +58,6 @@ body, html{
     position:absolute;
 }
 
-.obstacles {
-    width: 30px;
-    height: 30px;
-    border: 3px dashed red;
-    background-color: white;
-}
-
 .moreSpeed {
     width: 30px;
     height: 30px;
@@ -93,13 +82,21 @@ h1 {
 }
 
 .btn {
-    margin: 0 auto;
+    width: 20%;
+    margin: 5px 40% auto 40%;
     border-color: black;
     background-color: grey;
 }
 
-.maps {
-    position:absolute;
-    bottom: 0;
-    right:0;
+.row {
+    margin: auto auto 50px auto;
+    text-align: center;
+}
+
+.p-help {
+    margin: auto 15%;
+}
+
+.pu-help {
+    margin: 5% 25%;
 }
